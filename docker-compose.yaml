@@ -1,0 +1,73 @@
+version: '3'
+services:
+
+  dns:
+    build:
+      context: ./dns  
+    image: dns.asa.br:latest
+    container_name: ns1.asa.br
+    restart: unless-stopped
+    ports:
+    - "53:53/udp"
+    - "53:53/tcp"
+    volumes:
+      - ./dns/primary:/etc/bind
+    networks:
+      - asa-network
+  
+  nginx:
+    build:
+      context: ./nginx
+    container_name: www.asa.br
+    image: www.asa.br:latest
+    restart: unless-stopped
+    volumes:
+      - ./nginx/data:/usr/share/nginx/html
+    networks:
+      - asa-network
+
+  mail:
+    build: ./mail
+    image: mail.asa.br
+    restart: unless-stopped
+    container_name: mail.asa.br
+    ports:
+      - "25:25/tcp"
+      - "587:587/tcp"
+      - "143:143/tcp"
+    networks:
+      - asa-network
+
+  webmail:
+    build:
+      context: ./webmail
+    image: webmail.asa.br
+    restart: unless-stopped
+    container_name: webmail.asa.br
+    tty: true
+    volumes:
+      - ./webmail/rainloop:/var/www/html/rainloop
+    depends_on:
+      - mail
+    networks:
+      - asa-network
+
+  proxy:
+    build:
+      context: ./proxy
+    image: proxy.asa.br
+    restart: unless-stopped
+    container_name: proxy.asa.br
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - nginx
+      - webmail
+    networks:
+      - asa-network
+
+networks:
+  asa-network:
+    driver: bridge
