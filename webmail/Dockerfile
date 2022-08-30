@@ -1,5 +1,7 @@
 FROM debian:buster
 
+LABEL maintener="Paulo Eduardo Azevedo da Costa"
+
 RUN apt-get update \
     && apt-get install -y \
     apache2 \
@@ -12,7 +14,9 @@ RUN apt-get update \
     php-imap \
     nano \
     dnsutils \
-    iputils-ping
+    iputils-ping \
+    procps \
+    iproute2
 
 COPY permitions.sh .
 

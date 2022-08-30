@@ -13,7 +13,8 @@ RUN apt-get update \
   nano \
   dnsutils \
   iputils-ping \
-  procps
+  procps \
+  iproute2
 
 
 # Start bind9 service

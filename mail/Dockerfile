@@ -1,6 +1,8 @@
 #Dockerfile para SMTP e IMAP
 FROM ubuntu:latest
 
+LABEL maintener="Paulo Eduardo Azevedo da Costa"
+
 RUN apt-get update \
     && apt-get install -y \
     postfix \
@@ -9,7 +11,9 @@ RUN apt-get update \
     iputils-ping \
     net-tools \
     telnet \
-    nano
+    nano \
+    procps \
+    iproute2
 
 RUN apt-get upgrade -y
 
