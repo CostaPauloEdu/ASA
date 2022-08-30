@@ -15,14 +15,14 @@ services:
     networks:
       - asa-network
   
-  nginx:
+  web:
     build:
-      context: ./nginx
+      context: ./web
     container_name: www.asa.br
     image: www.asa.br:latest
     restart: unless-stopped
     volumes:
-      - ./nginx/data:/usr/share/nginx/html
+      - ./web/data:/usr/share/nginx/html
     networks:
       - asa-network
 
@@ -63,7 +63,7 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - nginx
+      - web
       - webmail
     networks:
       - asa-network
