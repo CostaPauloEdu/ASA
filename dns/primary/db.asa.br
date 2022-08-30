@@ -9,11 +9,16 @@ $TTL	604800
 			2419200		; Expire
 			 604800 )	; Negative Cache TTL
 ;
+@	IN	NS	asa.br.
 @	IN	NS	ns1.asa.br.
-
+;@	IN	NS	ns2.asa.br.
+@	IN	A	PRIMARY
+@	IN	MX	10 mail.asa.br.
 @	IN	A	127.0.0.1
 @	IN	AAAA	::1
 
 ns1			A	PRIMARY
 ns2			A	SECONDARY
 www			A	PRIMARY
+mail		A	PRIMARY
+webmail		A	PRIMARY

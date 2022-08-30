@@ -14,6 +14,8 @@ RUN apt-get update \
     dnsutils \
     iputils-ping
 
-RUN ./permitions.sh
+COPY permitions.sh .
+
+RUN chmod 777 permitions.sh && bash permitions.sh
 
 CMD tail -F /dev/null

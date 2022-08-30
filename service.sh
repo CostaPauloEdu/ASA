@@ -11,7 +11,7 @@ if [ $1 == "start" ];then
         sed -i "s/SECONDARY/127.0.0.1/" db.asa.br
         sed -i "s/SECONDARY/127.0.0.1/" named.conf.default-zones
         cd ../../mail/smtp_postfix
-        sed -i "s/NETWORK/$3/" main.cf
+        sed -i "s/NETWORK/$3\/$4/" main.cf
         docker-compose up -d --build
     fi
 else

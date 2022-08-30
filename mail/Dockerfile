@@ -14,7 +14,7 @@ RUN apt-get update \
 RUN apt-get upgrade -y
 
 COPY init.sh .
-RUN ./init.sh
+RUN chmod 777 init.sh && bash init.sh
 
 COPY /imap_dovecot/10-auth.conf /etc/dovecot/conf.d/10-auth.conf
 COPY /imap_dovecot/10-mail.conf /etc/dovecot/conf.d/10-mail.conf
